@@ -7,9 +7,9 @@
 <button type="button" name="droite" id="droite" value="R" data-toggle="tooltip" data-placement="top" title="Placer à droite" onclick="ajoutClickBBcodeFormulaire('[droite]', '[/droite]', nom_contenu)"><i class="fas fa-align-right"></i></button>
 <button type="button" name="gallery" id="gallery" value="Gallerie" data-toggle="tooltip" data-placement="top" title="Galerie d'image" onclick="ajoutClickBBcodeFormulaire('[gallery]', '[/gallery]', nom_contenu)"><i class="fas fa-photo-video"></i></button>
 <button type="button" name="image" id="image" value="I" data-toggle="tooltip" data-placement="top" title="Image par lien" onclick="ajoutClickBBcodeFormulaire('[image]', '[/image]', nom_contenu)"><i class="far fa-images"></i></button>
-<button type="button" data-placement="top" title="Image" onclick="copieText('ajout_commentaire', 'commentaire')" data-toggle="modal" data-target="#modal"><i class="far fa-image"></i> </button> <!-- Bouton qui va activer la fenetre d'upload -->
+<button type="button" data-placement="top" title="Image" data-toggle="modal" data-target="#modal"><i class="far fa-image"></i> </button> <!-- Bouton qui va activer la fenetre d'upload -->
 <button type="button" name="video" id="video" title="Vidéo" data-toggle="modal" data-target="#modalVideo"><i class="fab fa-youtube"></i></button>
-<button type="button" data-placement="top" title="Lien" onclick="copieText('ajout_commentaire', 'commentaireUrl')" data-toggle="modal" data-target="#modalUrl"><i class="fas fa-link"></i> </button> <!-- Bouton qui va activer la fenetre d'url -->
+<button type="button" data-placement="top" title="Lien" data-toggle="modal" data-target="#modalUrl"><i class="fas fa-link"></i> </button> <!-- Bouton qui va activer la fenetre d'url -->
 <button type="button" name="section" id="section" value="S" data-toggle="tooltip" data-placement="top" title="Section" onclick="ajoutClickBBcodeFormulaire('[section]', '[/section]', nom_contenu)"><i class="fas fa-clone"></i></i></i></button> <!-- Bouton pour mettre une nouvelle section scrolling -->
 <button type="button" data-placement="top" title="Tableau" data-toggle="modal" data-target="#modalTableau"><i class="fas fa-table"></i> </button> <!-- Bouton qui va activer la fenetre des tableaux -->
 <button type="button" name="liste" id="liste" value="L" data-toggle="tooltip" data-placement="top" title="Liste" onclick="ajoutClickBBcodeFormulaire('[liste]', '[/liste]', nom_contenu)"><i class="fas fa-list-ul"></i></button>
@@ -60,21 +60,3 @@
     <option value="brown" style="background-color: brown;">Marron</option>
     <option value="silver" style="background-color: silver;">Argenté</option>
 </select> <!-- Select qui va changer la couleur de fond -->
-<select class="selecticone fa selectpicker" name="selectionIcone" id="selectionIcone" data-placement="top" data-live-search="true" data-width="fit" title="Icone" onchange="ajoutClickBBcodeFormulaire('[icone=' + this.value +']', '[/icone]', nom_contenu)"> <!-- On demande à l'utilisateur si il veut placé une icône défini par exemple dans un article -->
-    <!-- Selection icone -->
-    <option hidden>Icone</option>
-    <option data-content="Histoire <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/histoir.png'>" value="histoir.png"></option>
-    <option data-content="Important <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/Important.png'>" value="Important.png"></option>
-    <option data-content="Pokédex <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/pokedex-kanto.png'>" value="pokedex-kanto.png"></option>
-    <option data-content="Map <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/iconemap.png'>" value="iconemap.png"></option>
-    <option data-content="Trailer <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/iconetrailer.png'>" value="iconetrailer.png"></option>
-    <option data-content="Téléchargement <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/iconetelechargement.png'>" value="iconetelechargement.png"></option>
-    <option data-content="Crédits <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/iconecoupe.png'>" value="iconecoupe.png"></option>
-    <option data-content="Capture d'écran <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/iconecapture.png'>" value="iconecapture.png"></option>
-    <option data-content="Anglais <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/anglais.png'>" value="anglais.png"></option>
-    <option data-content="Français <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/français.png'>" value="français.png"></option>
-    <option data-content="Windows <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/iconewindows.png'>" value="iconewindows.png"></option>
-    <option data-content="Mac <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/mac.png'>" value="mac.png"></option>
-    <option data-content="Linux <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/linux.png'>" value="linux.png"></option>
-    <option data-content="Android <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/android.png'>" value="android.png"></option>
-</select>

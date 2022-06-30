@@ -9,11 +9,5 @@ setcookie('utilisateur', '', time() - 3600); // cookie
 ?>
 
 <script>
-    document.location.href = '/portfolio/index.php';
-    </script>
-
-<body>
-
-</body>
-
-</html>
+    document.location.href = 'index.php';
+</script>

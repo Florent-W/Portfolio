@@ -1,10 +1,10 @@
 <?php
 session_start(); // Lance variable de session
-$id = $_GET['id'];
+$id = htmlspecialchars($_GET['id']);
 
 include('connexion_base_donnee.php');
 
-$reponse = $bdd->prepare('SELECT article.titre, article.contenu, article.nom_categorie, article.nom_miniature, article.nom_banniere AS article_nom_banniere, utilisateurs.pseudo, utilisateurs.nom_photo_profil, jeu.id, jeu.url, jeu.nom_banniere, jeu.nom, DATE_FORMAT(date_creation, "%Y/%M/%d/%kh%i") AS date_article_dossier, DATE_FORMAT(date_creation, "%d %M %Y") AS date_article FROM article LEFT JOIN utilisateurs ON article.id_auteur = utilisateurs.id LEFT JOIN jeu ON article.id_jeu = jeu.id WHERE article.id = :id AND article.approuver = 1'); // Récupération de la news
+$reponse = $bdd->prepare('SELECT article.titre, article.contenu, article.nom_categorie, article.nom_miniature, article.id as article_id, article.nom_banniere AS article_nom_banniere, article.url as article_url, utilisateurs.pseudo, utilisateurs.nom_photo_profil, DATE_FORMAT(date_creation, "%Y/%M/%d/%Hh%i") AS date_article_dossier, DATE_FORMAT(date_creation, "%d %M %Y") AS date_article FROM article LEFT JOIN utilisateurs ON article.id_auteur = utilisateurs.id WHERE article.id = :id AND article.approuver = 1'); // Récupération de la news
 $reponse->execute(array('id' => $id));
 $donnees = $reponse->fetch();
 
@@ -12,42 +12,27 @@ $title = $donnees['titre']; // On met le titre de l'article
 include('Header.php');
 ?>
 
-<body class="background">
+<script>
+    autoCompletion("recherche", "Articles");
+</script>
+
+<body class="background" style="background-size: cover; background-image: url('<?php echo '/portfolio/background/background' . $donnees['article_id'] . '.jpg'; ?>')">
     <div class="container container-news bg-white">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb" style="background-color: transparent;">
                 <li class="breadcrumb-item"><a href="/portfolio/index.php">Accueil</a></li>
-                <!-- Si l'article fait parti d'un jeu, on affiche le nom et on met l'url du jeu pour sa categorie -->
-                <?php if (isset($donnees['nom'])) { ?>
-                    <li class="breadcrumb-item"><a href="/jeu/<?php echo htmlspecialchars($donnees['url']); ?>-<?php echo htmlspecialchars($donnees['id']); ?>"><?php echo htmlspecialchars($donnees['nom']); ?></a></li>
-                    <li class="breadcrumb-item"><a href="/jeu/<?php echo htmlspecialchars($donnees['url']); ?>-<?php echo htmlspecialchars($donnees['id']); ?>/<?php echo strtolower(htmlspecialchars($donnees['nom_categorie'])); ?>"><?php echo htmlspecialchars($donnees['nom_categorie']); ?></a></li>
-                <?php } else {
-                ?>
                     <li class="breadcrumb-item"><a href="/portfolio/index.php"><?php echo htmlspecialchars($donnees['nom_categorie']); ?></a></li>
-                <?php
-                }
-                ?>
                 <li class="breadcrumb-item" aria-current="page"><?php echo htmlspecialchars($donnees['titre']); ?></li>
             </ol>
         </nav>
 
-        <h1 class="d-flex justify-content-center" style="font-size: 1.8em;"><?php echo htmlspecialchars($donnees['titre']); ?></h1>
+        <h1 class="d-flex justify-content-center text-dark" style="font-size: 1.8em;"><?php echo htmlspecialchars($donnees['titre']); ?></h1>
         <div>
             <p class="d-flex justify-content-center"><em>Publié le <?php echo htmlspecialchars($donnees['date_article']); ?></em></p>
         </div>
         <div class="d-flex justify-content-center">
-           <?php if(isset($donnees['article_nom_banniere'])) { // Si on met un bandeau
-           ?>
-            <img src="/portfolio/Articles/<?php echo htmlspecialchars($donnees['date_article_dossier']); ?>/<?php echo htmlspecialchars($donnees['titre']); ?>/bandeaux/<?php echo htmlspecialchars($donnees['article_nom_banniere']); ?>" onerror="this.oneerror=null; this.src='/banniere.jpg';" class="d-block img-fluid" style="width:100%; height:auto; max-height: 500px; margin-bottom:1vh; margin-top:1vh; border: 3px solid;">
-           <?php }
-           else { // Sinon on met le bandeau du jeu
-           ?>
-            <img src="/Jeux/<?php echo htmlspecialchars($donnees['nom']); ?>/bandeaux/<?php echo htmlspecialchars($donnees['nom_banniere']); ?>" onerror="this.oneerror=null; this.src='/banniere.jpg';" class="d-block img-fluid" style="width:100%; height:auto; max-height: 500px; margin-bottom:1vh; margin-top:1vh; border: 3px solid;">
-           <?php
-        }
-           ?>
+            <img src="/portfolio/Articles/<?php echo htmlspecialchars($donnees['date_article_dossier']); ?>/<?php echo htmlspecialchars($donnees['article_url']); ?>/bandeaux/<?php echo htmlspecialchars($donnees['article_nom_banniere']); ?>" onerror="this.oneerror=null; this.src='/portfolio/banniere.jpg';" class="d-block img-fluid bandeaux">
             </div>
-        <!-- <img src="/miniature/<?php echo htmlspecialchars($donnees['nom_miniature']); ?>" onerror="this.oneerror=null; this.src='/1.jpg';" class="d-block img-fluid" style="width:800vh; height:50vh; margin:1vh"> -->
         <p class="justify-content-center text-break text-justify">
             <div class="contenu-news"> <?php echo remplacementBBCode(nl2br(htmlspecialchars($donnees['contenu'])), true, false); ?></div>
         </p>
@@ -62,7 +47,7 @@ include('Header.php');
             <!-- Auteur de la news -->
             <div class="col-md-7 cadre" style="display: flex; align-items: center;">
                 <div class="col-md-6">
-                    <img src="/portfolio/photo_profil/<?php echo htmlspecialchars($donnees['nom_photo_profil']); ?>" onerror="this.oneerror=null; this.src='/1.jpg';" class="float-left img-fluid img-thumbnail" style="height: 20vh; width: 15vh;"> <!-- Image à gauche et si image non trouvée, elle est remplacée par une image par défaut, titre à droite -->
+                    <img src="/portfolio/photo_profil/<?php echo htmlspecialchars($donnees['nom_photo_profil']); ?>" onerror="this.oneerror=null; this.src='/portfolio/1.png';" class="float-left img-fluid img-thumbnail" style="height: 20vh; width: 15vh;"> <!-- Image à gauche et si image non trouvée, elle est remplacée par une image par défaut, titre à droite -->
                 </div>
                 <div class="text-center col-md-4">
                     Ecrit par <em><?php echo htmlspecialchars($donnees['pseudo']); ?></em></div>
@@ -108,7 +93,7 @@ include('Header.php');
 
                     <div class="carousel-inner" style="margin-bottom: 20px;">
 
-                        <?php $offsetArticleSimilaire = 0; // Le premier article de la colonne d'article similaire, servira à dire à quel article commencer 
+                        <?php $offsetArticleSimilaire = 0; // Le premier article de la colonne d'article similaire, servira à dire à quel article commencer
                         ?>
                         <div class="carousel-item active">
                             <!-- La colonne de news qu'on voit par défaut -->
@@ -200,20 +185,20 @@ include('Header.php');
 
     </div>
     <?php
-    $reponse = $bdd->prepare('SELECT article.id, article.url FROM article LEFT JOIN utilisateurs ON article.id_auteur = utilisateurs.id LEFT JOIN jeu ON article.id_jeu = jeu.id WHERE article.id < :id AND article.approuver = 1 ORDER BY id DESC LIMIT 1'); // Récupération de la news précédente
+    $reponse = $bdd->prepare('SELECT article.id, article.url FROM article LEFT JOIN utilisateurs ON article.id_auteur = utilisateurs.id WHERE article.id < :id AND article.approuver = 1 ORDER BY id DESC LIMIT 1'); // Récupération de la news précédente
     $reponse->execute(array('id' => $id));
     $nbPagePrecedente = $reponse->rowCount();
     $donnees = $reponse->fetch();
 
-    $pagePrecedente = "/news" . "/" . $donnees['url'] . '-' . $donnees['id'];
+    $pagePrecedente = "/portfolio/news" . "/" . $donnees['url'] . '-' . $donnees['id'];
     $reponse->closeCursor();
 
-    $reponse = $bdd->prepare('SELECT article.id, article.url FROM article LEFT JOIN utilisateurs ON article.id_auteur = utilisateurs.id LEFT JOIN jeu ON article.id_jeu = jeu.id WHERE article.id > :id AND article.approuver = 1 ORDER BY id ASC LIMIT 1'); // Récupération de la news suivante
+    $reponse = $bdd->prepare('SELECT article.id, article.url FROM article LEFT JOIN utilisateurs ON article.id_auteur = utilisateurs.id WHERE article.id > :id AND article.approuver = 1 ORDER BY id ASC LIMIT 1'); // Récupération de la news suivante
     $reponse->execute(array('id' => $id));
     $nbPageSuivante = $reponse->rowCount();
     $donnees = $reponse->fetch();
 
-    $pageSuivante = "/news" . "/" . $donnees['url'] . '-' . $donnees['id'];
+    $pageSuivante = "/portfolio/news" . "/" . $donnees['url'] . '-' . $donnees['id'];
     $reponse->closeCursor();
     ?>
 
@@ -224,18 +209,6 @@ include('Header.php');
         nbPageSuivante = '<?php echo $nbPageSuivante; ?>';
 
         changerPage(pagePrecedente, pageSuivante, nbPagePrecedente, nbPageSuivante);
-
-        /*
-                $('body').each(function(){
-                var hammertime = new Hammer(this);
-                hammertime.on('swipeleft', function(e) {
-                    alert('b');
-                });
-                hammertime.on('swiperight', function(e) {
-                    alert('b');
-                })
-               }); 
-               */
     </script>
     <?php
     include('ajout_commentaire_traitement.php');

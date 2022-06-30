@@ -25,25 +25,19 @@ if (isset($_GET['action']) and isset($_GET['url']) and isset($_GET['id_news']) a
 ?>
    <?php if ($type_commentaire == "commentaire") { ?>
     <script>
-          document.location.href = '/news/<?php echo $url; ?>-<?php echo $id_news; ?>'; // Redirection vers la news
+          document.location.href = '/portfolio/news/<?php echo $url; ?>-<?php echo $id_news; ?>'; // Redirection vers la news
     </script>
     <?php }
-    else if($type_commentaire == "commentaire_jeu") { ?>
-        <script>
-          document.location.href = '/jeu/<?php echo $url; ?>-<?php echo $id_news; ?>'; // Redirection vers la news
-    </script>
-    <?php
-    }
     ?>
 <?php
 } else { // Si des paramètres manquent, on redirige vers l'index
 ?>
     <script>
-        document.location.href = '/index.php'; // Redirection vers l'index
+        document.location.href = 'index.php'; // Redirection vers l'index
     </script>
 <?php
 }
 } ?>
 <script>
-document.location.href = '/index.php'; // Redirection vers l'index
+document.location.href = 'index.php'; // Redirection vers l'index
 </script>

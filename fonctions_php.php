@@ -1,12 +1,23 @@
 <?php
-// Prend en paramètre une chaine de caractère et permet de lui enlever les accents et les caractères spéciaux pour que le titre soit dans l'url
+/***
+ * Prend en paramètre une chaine de caractère et permet de lui enlever les accents et les caractères spéciaux pour que le titre soit dans l'url
+ * @param string Chaîne de caractère à faire passer en url
+ * @return string La même chaîne de caractère mais formaté pour être accepté en URL
+ */
 function EncodageTitreEnUrl($string)
 {
     return strtolower(trim(preg_replace('~[^0-9a-z]+~i', '-', html_entity_decode(preg_replace('~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', htmlentities($string, ENT_QUOTES, 'UTF-8')), ENT_QUOTES, 'UTF-8')), '-'));
 }
 
-// Prend en paramètre un texte et un nombre de caractère maximum et renvoi le texte couper du premier caractère jusqu'à à la lettre correspondant au dernier caractère autorisé
-function tronquerTexte($texte, $nombreCaractereMax, $lien)
+/***
+ * Prend en paramètre un texte et un nombre de caractère maximum et renvoi le texte couper du premier caractère jusqu'à à la lettre correspondant au dernier caractère autorisé
+ * @param $texte
+ * @param $nombreCaractereMax
+ * @param $lien
+ * @param $avecLireLaSuite
+ * @return false|mixed|string
+ */
+function tronquerTexte($texte, $nombreCaractereMax, $lien, $avecLireLaSuite = null)
 {
     $nombreCaractereTexte = strlen($texte); // Nombre de caractère dans le texte
 
@@ -14,19 +25,21 @@ function tronquerTexte($texte, $nombreCaractereMax, $lien)
         $texte = substr($texte, 0, $nombreCaractereMax);
         $positionEspace = strrpos($texte, " "); // On cherche la position du dernier mot pour ne pas que l'article se coupe en plein mot
         $texte = substr($texte, 0, $positionEspace); // On enlève le dernier mot       
-        if($lien != "") { // Si le lien n'est pas vide, surtout pour le carousel
-        return $texte . "...<p>[Lire la suite]</p>";
+        if ($lien != "" && $avecLireLaSuite) { // Si le lien n'est pas vide, surtout pour le carousel
+            return $texte . "...<p>[Lire la suite]</p>";
+        } else {
+            return $texte . "..."; // Texte sans lire
         }
-        else {
-            return $texte; // Texte sans lire
-        }
-        // return $texte . ' <a href="'. $lien . '">[Lire la suite]</a>';
     } else {
         return $texte;
     }
 }
 
-// Prend en paramètre une url d'une vidéo youtube et permet de récupérer l'id de la vidéo
+/***
+ * Prend en paramètre une url d'une vidéo youtube et permet de récupérer l'id de la vidéo
+ * @param $url
+ * @return string
+ */
 function recupererIdVideo($url)
 {
 
@@ -37,7 +50,11 @@ function recupererIdVideo($url)
     return $nouvelleUrl;
 }
 
-// Retire les accents d'une chaîne de caractère
+/***
+ * Retire les accents d'une chaîne de caractère
+ * @param $str
+ * @return array|string|string[]|null
+ */
 function retirerAccent($str)
 {
     $url = $str;
@@ -69,8 +86,14 @@ function redimensionImage($largeur, $hauteur, $tailleLargeurAutoriser, $tailleHa
      }
 }
 
-// Remplace les caractères du BBCode par des balises html avec ou sans lien pour ne pas buguer les articles, ou juste supprimer les balises
-function remplacementBBCode($contenu, bool $avecLien, bool $supprimerBalise)
+/***
+ * Remplace les caractères du BBCode par des balises html avec ou sans lien pour ne pas buguer les articles, ou juste supprimer les balises
+ * @param $contenu
+ * @param $avecLien
+ * @param $supprimerBalise
+ * @return array|string|string[]|null
+ */
+function remplacementBBCode($contenu, $avecLien, $supprimerBalise)
 {
     // italique
     if ($supprimerBalise == false) {
@@ -118,14 +141,10 @@ function remplacementBBCode($contenu, bool $avecLien, bool $supprimerBalise)
         $contenu = str_replace("[/image]", "></img>", $contenu);
 
         // Image serveur
-        $contenu = preg_replace('#\[image2=(.+?)](.+?)\[\/image2]#', "<div data-title='Title 1' data-desc='Description 1' data-responsive-src='/images/$2' data-src='/images/$2' style='display:inline;'><a href='/images/$2'><img class='img-fluid mw-100 lazy' style='float: $1; margin:10px; width: auto; height: auto; max-height: 900px;' data-src='/images/$2'></a></div>", $contenu); // Recherche pour enlever la balise ainsi que recuperer l'alignement
-        // $contenu = str_replace("[/image2]", "'></a></div>", $contenu);
-
-       // $contenu = str_replace("[image2]", "<div data-title='Title 1' data-desc='Description 1' data-responsive-src='/1.jpg' data-src='/1.jpg'> <a href='#'><img class='img-fluid' width: auto; height: auto; max-width: 210px; max-height: 210px;' src='/images/", $contenu);
+        $contenu = preg_replace('#\[image2=(.+?)](.+?)\[\/image2]#', "<div data-title='Title 1' data-desc='Description 1' data-responsive-src='/portfolio/images/$2' data-src='/portfolio/images/$2' style='display:inline;'><a href='/portfolio/images/$2'><img class='img-fluid mw-100 lazy' alt='Image' style='float: $1; margin:10px; width: auto; height: auto; max-height: 900px;' data-src='/portfolio/images/$2'></a></div>", $contenu); // Recherche pour enlever la balise ainsi que recuperer l'alignement
 
         // Icone serveur
         $contenu = preg_replace('#\[icone=(.+?)]\[/icone]#', "<img class='img-fluid' style='margin:10px; width: auto; height: auto; max-width: 900px; max-height: 900px;' src='/icones/$1'>", $contenu); // Recherche pour enlever la balise ainsi que recuperer le nom de l'image
-        //  $contenu = str_replace("[/image2]", "'></img>", $contenu);
 
         // Lien
         if ($avecLien == true) { // Pour ne pas faire buguer les articles qui possède déjà un lien
@@ -168,7 +187,6 @@ function remplacementBBCode($contenu, bool $avecLien, bool $supprimerBalise)
         $contenu = preg_replace('#\[TableauEntrée](.+?)\[/TableauEntrée]#', '<div>$1</div>', $contenu); // Recherche pour enlever la balise
 
         // Video
-        // <iframe width="560" height="315" src="https://www.youtube.com/embed/FCAgvzCHnBA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         $contenu = str_replace("[video]", "<iframe width=280 height=180 class=video-commentaire frameborder=0 allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen src=", $contenu);
         $contenu = str_replace("[/video]", " ></iframe>", $contenu);
 
@@ -284,7 +302,6 @@ function remplacementBBCode($contenu, bool $avecLien, bool $supprimerBalise)
         $contenu = preg_replace('#\[TableauEntrée](.+?)\[/TableauEntrée]#', '', $contenu); // Recherche pour enlever la balise
 
         // Video
-        // <iframe width="560" height="315" src="https://www.youtube.com/embed/FCAgvzCHnBA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         $contenu = str_replace("[video]", "", $contenu);
         $contenu = str_replace("[/video]", "", $contenu);
 

@@ -13,8 +13,8 @@ $reponse->closeCursor();
 <body class="background">
     <div class="container container-bordure animated fadeInRight bg-white">
         <div class="row">
-            <form class="form" method="post" enctype="multipart/form-data" style="margin:50px">
-                <h1>Modifier profil</h1>
+            <form class="form" method="post" enctype="multipart/form-data" style="margin-top:50px; margin-bottom: 50px; padding-left: 50px; padding-right: 50px;">
+                <h1 class="text-dark">Modifier profil</h1>
                 <hr> <!-- Trait -->
                 <div class="form-group">
                     <label for="pseudo">Pseudo</label>
@@ -22,7 +22,7 @@ $reponse->closeCursor();
                 </div>
                 <div class="form-group">
                     <label for="photo_profil_actuel">Photo de profil actuelle</label>
-                    <img src="/photo_profil/<?php echo $donnees['nom_photo_profil'] ?>" onerror="this.oneerror=null; this.src='/1.jpg';" name="photo_profil_actuel" id="photo_profil_actuel" class="img-fluid img-thumbnail form-control" style="height: 10vh; width: 10vh;"> <!-- Image à gauche et si image non trouvée, elle est remplacée par une image par défaut -->
+                    <img src="/portfolio/photo_profil/<?php echo $donnees['nom_photo_profil'] ?>" onerror="this.oneerror=null; this.src='/portfolio/1.png';" name="photo_profil_actuel" id="photo_profil_actuel" class="img-fluid img-thumbnail form-control" style="height: 10vh; width: 10vh;"> <!-- Image à gauche et si image non trouvée, elle est remplacée par une image par défaut -->
                 </div>
                 <div class="form-group">
                     <label for="photo_profil">Modifier la photo de profil (non obligatoire)</label>
@@ -59,7 +59,8 @@ include('footer.php');
 
 <?php
 if (!empty($_FILES['photo_profil']['tmp_name'])) { // Traitement
-    $nom_miniature = $_FILES['photo_profil']['name'];
+    $idUtilisateur = $donnees['id'];
+    $nom_photo_profil = $idUtilisateur . '.' . strtolower(pathinfo($_FILES['photo_profil']['name'], PATHINFO_EXTENSION));
 
     $tailleImage = getimagesize($_FILES['photo_profil']['tmp_name']); // Récupération taille de l'image uploadée
     $largeur = $tailleImage[0];
@@ -91,14 +92,9 @@ if (!empty($_FILES['photo_profil']['tmp_name'])) { // Traitement
     }
 
     $reponse = $bdd->prepare('UPDATE utilisateurs SET nom_photo_profil = :nom_photo_profil WHERE pseudo = :pseudo'); // Modification utilisateur
-    $reponse->execute(array('nom_photo_profil' =>  $nom_photo_profil, 'pseudo' => $donnees['pseudo']));   
+    $reponse->execute(array('nom_photo_profil' => $nom_photo_profil, 'pseudo' => $donnees['pseudo']));
     ?>
     <script>
-        <?php /* document.location.href = '/modifier_news/<?php echo $url; ?>-<?php echo $id; ?>'; // Redirection nouvelle url */ ?>
-        document.location.href = '/index.php';
+        document.location.href = '/portfolio/';
     </script>
     <?php }
-?>
-<?php
-    // header('Location: index.php'); // Redirection vers la page d'accueil
-    ?>

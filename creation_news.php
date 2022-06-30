@@ -6,8 +6,8 @@ include('Header.php');
 <body class="background">
     <div class="container container-bordure animated fadeInRight bg-white">
         <div class="row">
-            <form class="form" id="creation_news" method="post" enctype="multipart/form-data" style="margin:50px">
-                <h1>Création de news</h1>
+            <form class="form" id="creation_news" method="post" enctype="multipart/form-data" style="margin-top:50px; margin-bottom: 50px; padding-left: 50px; padding-right: 50px;">
+                <h1 class="text-dark">Création de news</h1>
                 <hr> <!-- Trait -->
                 <?php if (isset($_SESSION['pseudo'])) { // Si l'utilisateur est connecter, il peut modifier un article
                 ?>
@@ -50,18 +50,6 @@ include('Header.php');
                             $reponse->closeCursor(); ?>
                         </select>
                         <label id="categorieIndication" class="text-danger"><?php if (isset($_POST['categorie']) and empty($_POST['categorie'])) echo "Veuillez choisir une catégorie"; ?></label> <!-- Indication categorie, il sera indiqué si le texte n'a pas de caractère ou le formulaire a déjà été soumis mais qu'il y a une erreur -->
-                    </div>
-
-                    <script>
-                        autoCompletion("jeu", "Jeux");
-                    </script>
-
-                    <div class="form-group">
-                        <label for="jeu">Lié à un jeu (non obligatoire)</label>
-                        <div name="lierJeux" id="lierJeux" style="position: relative; border : 1px solid;">
-                        <input type="text" name="jeu" id="jeu" style="border: 0;" value="<?php if (!empty($_POST['jeu'])) echo $_POST['jeu'] ?>" class="form-control" style="display: inline-block;"> <!-- On conserve les valeurs au cas où il y a une erreur dans l'envoi -->
-                        </div>
-                        <label id="jeuIndication" class="text-danger"><?php if (isset($_POST['jeu'])) echo "Le titre du jeu n'a pas été trouvé"; ?></label> <!-- Indication titre du jeu, il sera indiqué si le formulaire a déjà été soumis mais qu'il y a une erreur -->
                     </div>
 
                     <div class="form-group">
@@ -118,51 +106,20 @@ include('Header.php');
 
                     <button type="submit" id="btn_envoi" class="btn btn-success">Envoyer</button>
                 <?php } else if (!isset($_SESSION['pseudo'])) {
-                ?><div class="alert alert-warning" role="alert" style="margin-top: 10px;">Veuillez vous <a href="/connexion.php">connecter</a> pour écrire un article.</div> <?php
+                ?><div class="alert alert-warning" role="alert" style="margin-top: 10px;">Veuillez vous <a href="/portfolio/connexion.php">connecter</a> pour écrire un article.</div> <?php
                                                                                                                                                                             }    ?>
             </form>
         </div>
     </div>
-    <script>
-        //  $('#contenu').on('change', function() { // On met le contenu dans la prévisualisation
-        //    $('#previsualisationContenu').empty();
-        //   contenuTexteHtml = remplacerBaliseParBBCodePrevisualisation($('#contenu').val());
-        //   $('#previsualisationContenu').append(contenuTexteHtml); // On replace le contenu dans la prévisualisation
-        // });
-    </script>
 
     <?php
     include('footer.php');
-    ?>
-    <?php
     include('upload_image.php');
-    ?>
-    <?php
     include('ajout_url.php');
-    ?>
-    <?php
     include('ajout_tableau.php');
-    ?>
-    <?php
     include('ajout_video.php');
-    ?>
 
-    <?php
-    if (!empty($_POST['jeu'])) { // On cherche pour voir si l'utilisateur veut lier l'article à un jeu, si oui, on regarde si le titre entré correspond à un titre d'un jeu sinon on redemande de retaper le jeu
-        ?>
-        <script>
-            alert($_POST['lierJeux']);
-            console.log(($('#lierJeux').children('.tag').val()));
-    </script>
-    <?php
-        $reponse = $bdd->prepare('SELECT id FROM jeu WHERE nom = :nom');
-        $reponse->execute(array('nom' => $_POST['jeu']));
-        $id_jeu_trouver = $reponse->rowCount();
-        $donnees = $reponse->fetch();
-        $reponse->closeCursor();
-    }
-
-    if (!empty($_POST['titre']) and !empty($_POST['contenu']) and !empty($_POST['auteur']) and !empty($_POST['categorie']) and isset($_POST['article_approuver']) and !empty($_FILES['miniature']['tmp_name']) and (empty($_POST['jeu']) or (!empty($_POST['jeu'] and $id_jeu_trouver == 1 and isset($_SESSION['pseudo']))))) { // Traitement
+    if (!empty($_POST['titre']) and !empty($_POST['contenu']) and !empty($_POST['auteur']) and !empty($_POST['categorie']) and isset($_POST['article_approuver']) and !empty($_FILES['miniature']['tmp_name'])) { // Traitement
         $titre = $_POST['titre'];
         $url = EncodageTitreEnUrl($titre);
         $contenu = $_POST['contenu'];
@@ -178,24 +135,6 @@ include('Header.php');
 
         $type_image = 'miniature'; // Recupère le nom de l'image (formulaire) pour indiquer quel type de fichier on va récupérer, miniature
         include('image_traitement.php');
-        /*
-        if (pathinfo($_FILES['miniature']['tmp_name'], PATHINFO_EXTENSION) == "jpg") { // On regarde l'extension de l'image pour convertir
-            $im = imagecreatefromjpeg($_FILES['miniature']['name']); // Stockage de la photo qui vient d'être uploadée
-            $im_miniature = imagecreatetruecolor($largeur_miniature, $hauteur_miniature); // Création de la miniature avec une couleur de 24 bits avec une hauteur proportionnelle à celle d'origine
-            imagecopyresampled($im_miniature, $im, 0, 0, 0, 0, $largeur_miniature, $hauteur_miniature, $largeur, $hauteur); // Copie de l'image d'origine dans la miniature et redimensionnement
-            imagejpeg($im_miniature, 'miniature/' . $_FILES['miniature']['name'], 100); // Création de l'image jpg dans le dossier miniature
-        } else if (pathinfo($_FILES['miniature']['name'], PATHINFO_EXTENSION) == "png") { // On regarde l'extension de l'image pour convertir
-            $im = imagecreatefrompng($_FILES['miniature']['tmp_name']); // Stockage de la photo qui vient d'être uploadée
-            $im_miniature = imagecreatetruecolor($largeur_miniature, $hauteur_miniature); // Création de la miniature avec une couleur de 24 bits avec une hauteur proportionnelle à celle d'origine
-            $background = imagecolorallocatealpha($im_miniature, 255, 255, 255, 128);
-            imagecolortransparent($im_miniature, $background);
-            imagealphablending($im_miniature, false);
-            imagesavealpha($im_miniature, true);
-            imagecopyresampled($im_miniature, $im, 0, 0, 0, 0, $largeur_miniature, $hauteur_miniature, $largeur, $hauteur); // Copie de l'image d'origine dans la miniature et redimensionnement
-            imagepng($im_miniature, 'miniature/' . $_FILES['miniature']['name']); // Création de l'image png dans le dossier miniature
-            imagedestroy($im);
-        }
-        */
 
         if (!empty($_FILES['bandeaux']['tmp_name'])) { // On regarde si une bannière à été ajoutée
             $nom_banniere = $_FILES['bandeaux']['name']; // Si il y a un nom, cela sera bien mis dans la base de donnees
@@ -205,8 +144,6 @@ include('Header.php');
             $hauteur = $tailleImage[1];
             if ($largeur > 2500) { // On redimensionne
                 redimensionImage($largeur, $hauteur, 2500, 2500);
-                // $largeur_miniature = 1200; // Largeur de la future miniature
-                // $hauteur_miniature = $hauteur / $largeur * 675;
             } else {
                 $largeur_miniature = $largeur;
                 $hauteur_miniature = $hauteur;
@@ -218,34 +155,15 @@ include('Header.php');
             $nom_banniere = null;
         }
 
-        $reponse = $bdd->prepare('INSERT INTO article (titre, contenu, nom_categorie, nom_miniature, date_creation, url, id_jeu, id_auteur, approuver, nom_banniere) VALUES (:titre, :contenu, :categorie, :nom_miniature, :date_creation, :url, :id_jeu, :id_auteur, :article_approuver, :nom_banniere)'); // Insertion news
-        $reponse->execute(array('titre' => $titre, 'contenu' => $contenu, 'categorie' => $categorie, 'nom_miniature' => $nom_miniature, 'date_creation' => date("Y-m-d H:i:s"), 'url' => $url, 'id_jeu' => $donnees['id'], 'id_auteur' => $_POST['auteur'], 'article_approuver' => $article_approuver, 'nom_banniere' => $nom_banniere));
+        $reponse = $bdd->prepare('INSERT INTO article (titre, contenu, nom_categorie, nom_miniature, date_creation, url
+, id_auteur, approuver, nom_banniere) VALUES (:titre, :contenu, :categorie, :nom_miniature, :date_creation, :url, :id_auteur, :article_approuver, :nom_banniere)'); // Insertion news
+        $reponse->execute(array('titre' => $titre, 'contenu' => $contenu, 'categorie' => $categorie, 'nom_miniature' => $nom_miniature, 'date_creation' => date("Y-m-d H:i:s"), 'url' => $url, 'id_auteur' => $_POST['auteur'], 'article_approuver' => $article_approuver, 'nom_banniere' => $nom_banniere));
     ?>
         <script>
-            document.location.href = '/portfolio/index.php'; // Redirection nouvelle url
+           document.location.href = 'index.php'; // Redirection nouvelle url
         </script>
 
     <?php
-    } else {
     }
-
-    /*
-    if (empty($_POST['titre'])) { // Si le titre n'a pas été rempli
 ?>
-        <div class="form-group">Le titre n'a pas été rempli</div> <?php
-    }
-    if (empty($_POST['contenu'])) {
-        ?>
-        <div class="form-group">Le contenu n'a pas été rempli</div> <?php
-    }
-    if (empty($_FILES['miniature']['tmp_name'])) {
-        ?>
-        <div class="form-group">La miniature n'a pas été choisie</div> <?php
-    }
-    ?>
-    <a href="creation_news.php">Cliquez pour revenir à la création d'une news</a> 
-    </span>
-    <?php
-    */
-    ?>
 </body>

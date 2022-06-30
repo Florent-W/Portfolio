@@ -39,34 +39,36 @@ if (!isset($_SESSION['pseudo']) and !isset($_SESSION['id']) and !isset($_SESSION
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1 minimum-scale=1">
     <meta name="google-site-verification" content="mnHR8i8D51UnSwXEeDMG0bEWx_Q61zmr3pk3vXd72Sc" />
-    <link rel="stylesheet" href="/style.css">
-    <link rel="icon" type="image/png" href="/icone.png">
+    <link rel="stylesheet" href="/portfolio/css/style.css">
+    <link rel="icon" type="image/png" href="/portfolio/icone.png">
     <title><?php if (isset($title)) {
-                echo $title . " - Glitchworld";
-            } else { ?>Glitchworld<?php } ?></title>
-    <meta name="description" content="Bienvenue sur Glitchworld !" />
+                echo $title . " - Portfolio de Florent Weltmann";
+            } else { ?>Portfolio de Florent Weltmann<?php } ?></title>
+    <meta name="description" content="Bienvenue sur le portfolio de Florent Weltmann !" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="/portfolio/dist/css/lightgallery.min.css" />
+    <link rel="stylesheet" href="/portfolio/dist/css/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/jquery.fullpage.css" integrity="sha512-/AilQf/shuEGfh8c3DoIqcIqHZCKpiImSyt+fxIKJphHiNa6QMPb6AbDly6rkjmGr/5OZd35JtvVkbEKnCZO+A==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css" integrity="sha512-ARJR74swou2y0Q2V9k0GbzQ/5vJ2RBSoCWokg4zkfM29Fb3vZEQyv0iWBMW/yvKgyHSR/7D64pFMmU8nYmbRkg==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha512-YUkaLm+KJ5lQXDBdqBqk7EVhJAdxRnVdT2vtCzwPHSweCzyMgYV/tgGF4/dCyqtCC2eCphz0lRQgatGVdfR0ww==" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg==" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css" integrity="sha512-ARJR74swou2y0Q2V9k0GbzQ/5vJ2RBSoCWokg4zkfM29Fb3vZEQyv0iWBMW/yvKgyHSR/7D64pFMmU8nYmbRkg==" crossorigin="anonymous" />
     <script src="https://kit.fontawesome.com/008be5dab2.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.11/jquery.lazy.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.11/jquery.lazy.plugins.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.1/howler.min.js" integrity="sha512-L6Z/YtIPQ7eU3BProP34WGU5yIRk7tNHk7vaC2dB1Vy1atz6wl9mCkTPPZ2Rn1qPr+vY2mZ9odZLdGYuaBk7dQ==" crossorigin="anonymous"></script>
-    <!-- <script src="/jquery.typeText.min.js"></script> -->
-    <script src="/ghost-typer.min.js"></script>
-    <link rel="stylesheet" href="/dist/css/lightgallery.min.css" />
-    <script src="/dist/js/lightgallery-all.min.js"></script>
-    <script src="/dist/js/jquery.easy-ticker.min.js"></script>
+    <script src="/portfolio/dist/js/lightgallery-all.min.js"></script>
+    <script src="/portfolio/dist/js/jquery.easy-ticker.min.js"></script>
+    <script src="/portfolio/dist/js/scripts.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/vendors/jquery.easings.min.js" integrity="sha512-rXZZDfRSa6rsBuT78nRTbh1ccwpXhTCspKUDqox3hUQNYdjB6KB6mSj6mXcB9/5F5wODAJnkztXPxzkTalp11w==" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/vendors/scrolloverflow.min.js" integrity="sha512-FzESM/E7XJBqcJyrXa08gRcpp5rDHO661C0L3vH4NsZfUWUsjN4+t6Lg8h+e8TMR2aYijIrcT+CPGq7tSugRzA==" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/jquery.fullpage.css" integrity="sha512-/AilQf/shuEGfh8c3DoIqcIqHZCKpiImSyt+fxIKJphHiNa6QMPb6AbDly6rkjmGr/5OZd35JtvVkbEKnCZO+A==" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/jquery.fullpage.min.js" integrity="sha512-bxzECOBohzcTcWocMAlNDE2kYs0QgwGs4eD8TlAN2vfovq13kfDfp95sJSZrNpt0VMkpP93ZxLC/+WN/7Trw2g==" crossorigin="anonymous"></script>
     <script>
         $('.selectpicker').selectpicker({
@@ -83,8 +85,11 @@ if (!isset($_SESSION['pseudo']) and !isset($_SESSION['id']) and !isset($_SESSION
             });
         });
         $(function() {
+            AOS.init();
+        });
+
+        $(function() {
             $('.lazy').Lazy({
-                // your configuration goes here
                 scrollDirection: 'vertical',
                 effect: "fadeIn",
                 effectTime: 2000,
@@ -122,28 +127,14 @@ if (!isset($_SESSION['pseudo']) and !isset($_SESSION['id']) and !isset($_SESSION
             });
         });
         $(function() {
-            $("#creation_news").submit(function()
-                // Permet de récuperer chaque tag avec le formulaire
-                {
-                    var tags;
-                    $('#lierJeux span').each(function() {
-                        alert('b');
-                        tags = tags + $(this).text();
-                    });
-                    alert(tags);
-                });
-        });
-        $(function() {
             $('#fullpage').fullpage({
-
                 // Whether anchors in the URL will have any effect at all in the library
                 lockAnchors: false,
 
                 // Enables navigation
-                navigation: false,
-
+                navigation: true,
                 // Or 'left'
-                navigationPosition: 'right',
+               navigationPosition: 'left',
 
                 // Enables active tooltip
                 showActiveTooltip: false,
@@ -158,13 +149,10 @@ if (!isset($_SESSION['pseudo']) and !isset($_SESSION['id']) and !isset($_SESSION
                 scrollingSpeed: 700,
 
                 // Enables auto scrolling
-                autoScrolling: true,
+                autoScrolling: false,
 
                 // Auto fits sections to the viewport
                 fitToSection: true,
-
-                // In ms
-                fitToSectionDelay: 1000,
 
                 // Shows browser scrollbar
                 scrollBar: false,
@@ -180,7 +168,7 @@ if (!isset($_SESSION['pseudo']) and !isset($_SESSION['id']) and !isset($_SESSION
                 // Enables infinite looping on horizontal sliders
                 loopHorizontal: true,
 
-                // Defines whether scrolling down in the last section or should scroll down to the first one and if scrolling up in the first section should scroll up to the last one. 
+                // Defines whether scrolling down in the last section or should scroll down to the first one and if scrolling up in the first section should scroll up to the last one.
                 continuousVertical: false,
 
                 // Defines whether sliding right in the last slide should slide right to the first one or not, and if scrolling left in the first slide should slide left to the last one or not.
@@ -207,26 +195,16 @@ if (!isset($_SESSION['pseudo']) and !isset($_SESSION['id']) and !isset($_SESSION
                 // Uses fade effect instead
                 fadingEffect: false,
 
-                // If you want to avoid the auto scroll when scrolling over some elements, this is the option you need to use. (useful for <a href="https://www.jqueryscript.net/tags.php?/map/">map</a>s, scrolling divs etc.) 
-                // It requires a string with the Javascript selectors for those elements. (For example: normalScrollElements: '#element1, .element2'). 
+                // If you want to avoid the auto scroll when scrolling over some elements, this is the option you need to use. (useful for <a href="https://www.jqueryscript.net/tags.php?/map/">map</a>s, scrolling divs etc.)
+                // It requires a string with the Javascript selectors for those elements. (For example: normalScrollElements: '#element1, .element2').
                 normalScrollElements: '#element1, .element2',
-
-                // Creates a scroll for the section/slide in case its content is bigger than the height of it
-                // Requires: /vendor/scrolloverflow.js
-                scrollOverflow: true,
-
-                // Scrolls up the content of the section/slide with scroll bar when leaving to another vertical section
-                scrollOverflowReset: false,
-
-                // Requires iScroll.js library
-                scrollOverflowOptions: null,
 
                 // Defines a percentage of the browsers window width/height, and how far a swipe must measure for navigating to the next section / slide.
                 touchSensitivity: 5,
 
                 // Defines how to scroll to a section which size is bigger than the viewport.
                 // top, bottom, null
-                bigSectionsDestination: null,
+                bigSectionsDestination: "top",
 
                 // Accessibility
                 keyboardScrolling: true,
@@ -280,15 +258,75 @@ if (!isset($_SESSION['pseudo']) and !isset($_SESSION['id']) and !isset($_SESSION
                 slideSelector: '.slide',
 
                 // Lazy load media elements
-                lazyLoading: true
+                lazyLoading: true,
+
+                afterLoad: function(origin, destination, direction){
+                    $('#' + destination).addClass("animate__animated animate__fadeIn animate__delay-1s");
+                    $('#' + origin).class = "section fp-section";
+                }
             });
         });
     </script>
-    <audio id="audio_bouton" muted="muted">
-        <source src="/bouton_hover.wav">
-    </audio>
-    <?php  // if (session_id() == "") session_start(); // Lance une session si elle n'est pas ouverte
-    ?>
+    <style>
+
+        /* Style for our header texts
+        * --------------------------------------- */
+        h1{
+            font-size: 5em;
+            font-family: arial,helvetica;
+            color: #fff;
+            margin:0;
+            padding:0;
+        }
+        .intro p{
+            color: #fff;
+        }
+
+        /* Centered texts in each section
+        * --------------------------------------- */
+        .section{
+            text-align:center;
+        }
+
+
+
+        /* Defining each section background and styles
+        * --------------------------------------- */
+        #section0{
+            background: -webkit-gradient(linear, top left, bottom left, from(#4bbfc3), to(#7baabe));
+            background: -webkit-linear-gradient(#4BBFC3, #7BAABE);
+            background: linear-gradient(#4BBFC3,#7BAABE);
+        }
+
+        #section2{
+            background: -webkit-gradient(linear, top left, bottom left, from(#969ac6), to(#636F8F));
+            background: -webkit-linear-gradient(#969AC6, #636F8F);
+            background: linear-gradient(#969AC6,#636F8F);
+        }
+
+
+
+        /*Adding background for the slides
+       * --------------------------------------- */
+        #slide1{
+            background: -webkit-gradient(linear, top left, bottom left, from(#7baabe), to(#969ac6));
+            background: -webkit-linear-gradient(#7BAABE, #969AC6);
+            background: linear-gradient(#7BAABE,#969AC6);
+        }
+        #slide2{
+            background: -webkit-gradient(linear, top left, bottom left, from(#92a1ca), to(#76c2bd));
+            background: -webkit-linear-gradient(#92a1ca, #76c2bd);
+            background: linear-gradient(#92a1ca,#76c2bd);
+        }
+
+
+        /* Bottom menu
+        * --------------------------------------- */
+        #infoMenu li a {
+            color: #fff;
+        }
+    </style>
+
     <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
         <!-- Barre de navigation -->
         <a class="navbar-brand" href="/portfolio">Portfolio <div style="font-size : 14px;">De Florent Weltmann</div>
@@ -309,7 +347,6 @@ if (!isset($_SESSION['pseudo']) and !isset($_SESSION['id']) and !isset($_SESSION
                         <!-- Liste déroulante -->
                         <a class="nav-link" href="/portfolio/news/application-rpg-sous-windows-forms-en-c-sharp-117"><i class="fas fa-desktop"></i> RPG : Interface 2D (Windows Forms)</a>
                         <a class="nav-link" href="/portfolio/news/application-rpg-sous-unity-118"><i class="fas fa-desktop"></i> RPG : Open World 3D (Unity)</a>
-                        <!-- <a class="dropdown-item" href="/portfolio/creation_jeu.php">Créer jeu</a> -->
                     </div>
                 </div>
                 <div class="dropdown nav-item">
@@ -317,7 +354,6 @@ if (!isset($_SESSION['pseudo']) and !isset($_SESSION['id']) and !isset($_SESSION
                     <div class="dropdown-menu">
                         <!-- Liste déroulante -->
                         <a class="nav-link" href="/portfolio/news/creation-du-site-internet-glitchworld-119"><i class="fab fa-chrome"></i> Glitchworld</a>
-                        <!-- <a class="dropdown-item" href="/portfolio/creation_jeu.php">Créer jeu</a> -->
                     </div>
                 </div>
                 <div class="dropdown nav-item">
@@ -326,21 +362,8 @@ if (!isset($_SESSION['pseudo']) and !isset($_SESSION['id']) and !isset($_SESSION
                         <!-- Liste déroulante -->
                         <a class="nav-link" href="/portfolio/news/ppe-1-creation-d-un-site-internet-pour-le-laboratoire-galaxy-swiss-bourdin-105"><i class="fas fa-laptop-house"></i> PPE 1 : Site Web GSB</a>
                         <a class="nav-link" href="/portfolio/news/ppe-2-creation-d-un-service-windows-116"><i class="fas fa-laptop-house"></i> PPE 2 : Service Windows</a>
-                        <!-- <a class="dropdown-item" href="/portfolio/creation_jeu.php">Créer jeu</a> -->
                     </div>
                 </div>
-
-                <!-- <div class="dropdown nav-item">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-gamepad"></i> Jeux</a>
-                    <div class="dropdown-menu">
-                        <!-- Liste déroulante -->
-                <!--
-                        <a class="dropdown-item" href="/portfolio/liste/Jeux">Liste des jeux</a>
-                        <a class="dropdown-item" href="/portfolio/liste/Jeux/Officiel">Jeux officiels</a>
-                        <a class="dropdown-item" href="/portfolio/liste/Jeux/Rom+hack">Rom hacks</a>
-                        <a class="dropdown-item" href="/portfolio/liste/Jeux/Fan+game">Fan games</a>
-                    </div>
-                </div> -->
 
                 <div class="dropdown nav-item">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="far fa-building"></i> Stage 1</a> <!-- Bouton pour activer la liste déroulante -->
@@ -398,34 +421,12 @@ if (!isset($_SESSION['pseudo']) and !isset($_SESSION['id']) and !isset($_SESSION
                     ?>
                 </div>
             </ul>
-            <form class="form-inline my-2 my-lg-0" method="get" action="recherche.php">
+            <form class="form-inline my-2 my-lg-0" method="get" action="/portfolio/recherche.php">
                 <input class="form-control mr-sm-2" type="search" name="recherche" id="recherche" placeholder="Rechercher">
                 <button class="btn btn-outline-success btn-header my-2 my-sm-0" type="submit">Rechercher</button>
             </form>
         </div>
     </nav>
-
-    <!-- <input type="button" id="playButton" value="Jouer Musique"> -->
-
-    <script>
-        $(function() {
-            $(".colonne-liste").on("hover", function() {
-                ion.sound.play("/song.mp3");
-            });
-        });
-        /*
-        var sound = new Howl({
-            src: ['/song.mp3']
-        });
-        $(document).ready(function() {
-            $('#playButton').click(function() {
-                sound.stop();
-                sound.play();
-            });
-        })
-        */
-    </script>
-
 
     <?php
     include_once('connexion_base_donnee.php');
@@ -434,12 +435,12 @@ if (!isset($_SESSION['pseudo']) and !isset($_SESSION['id']) and !isset($_SESSION
 </head>
 
 <?php
-include('fonctions_php.php');
+include_once('fonctions_php.php');
 ?>
 
 <?php
-include('fonctions_javascript.php');
+include_once('fonctions_javascript.php');
 ?>
 <script>
-    autoCompletion("recherche", "Tous");
+  // autoCompletion("recherche", "Tous");
 </script>

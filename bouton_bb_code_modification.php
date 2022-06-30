@@ -63,21 +63,3 @@
     <option value="brown" style="background-color: brown;">Marron</option>
     <option value="silver" style="background-color: silver;">Argenté</option>
 </select> <!-- Select qui va changer la couleur de fond -->
-<select class="selecticone fa selectpicker" name="selectionIcone" id="selectionIcone" data-placement="top" data-live-search="true" title="Icone" onchange="ajoutClickBBcodeFormulaire('[icone=' + this.value +']', '[/icone]', nom_contenu)"> <!-- On demande à l'utilisateur si il veut placé une icône défini par exemple dans un article -->
-    <!-- Selection icone -->
-    <option hidden>Icone</option>
-    <option data-content="Histoire <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/histoir.png'>" value="histoir.png"></option>
-    <option data-content="Important <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/Important.png'>" value="Important.png"></option>
-    <option data-content="Pokédex <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/pokedex-kanto.png'>" value="pokedex-kanto.png"></option>
-    <option data-content="Map <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/iconemap.png'>" value="iconemap.png"></option>
-    <option data-content="Trailer <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/iconetrailer.png'>" value="iconetrailer.png"></option>
-    <option data-content="Téléchargement <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/iconetelechargement.png'>" value="iconetelechargement.png"></option>
-    <option data-content="Crédits <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/iconecoupe.png'>" value="iconecoupe.png"></option>
-    <option data-content="Capture d'écran <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/iconecapture.png'>" value="iconecapture.png"></option>
-    <option data-content="Anglais <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/anglais.png'>" value="anglais.png"></option>
-    <option data-content="Français <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/français.png'>" value="français.png"></option>
-    <option data-content="Windows <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/iconewindows.png'>" value="iconewindows.png"></option>
-    <option data-content="Mac <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/mac.png'>" value="mac.png"></option>
-    <option data-content="Linux <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/linux.png'>" value="linux.png"></option>
-    <option data-content="Android <img class='img-fluid' style='width: auto; height: auto; max-width: 41px; max-height: 31px;' src='/icones/android.png'>" value="android.png"></option>
-</select>

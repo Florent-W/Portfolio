@@ -1,0 +1,105 @@
+body {
+    background-image: url("../images/book.jpg"); /* Changement du background */
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* Rectangle de la médiathèque */
+.fenetre {
+    margin: 5%;
+    padding-bottom: 2%;
+    border: 12px solid #873a13 !important;
+    border-radius: 9px;
+    box-shadow: 5px 10px 10px black;
+    background-color: white;
+}
+
+.bouton-supprimer {
+    margin: 0.5%;
+    width: auto;
+    height: 10%;
+}
+
+.ligne-adherent-livre fieldset {
+    flex: auto;
+}
+
+.ligne-adherent-livre {
+    display: flex;
+    flex-direction: row;
+}
+
+.case {
+    display: flex;
+    flex: auto;
+}
+
+.case input {
+    margin-right : 5px;
+    flex: auto;
+    border-radius: 3px;
+}
+
+.case button {
+    flex: 0.15;
+    border-radius: 3px;
+}
+
+/* Les différents onglets */
+.onglets {
+    display: flex;
+    margin-top: 2%;
+    flex-direction: row;
+}
+
+.onglets fieldset {
+    flex-grow: 2;
+}
+
+/* Pour être sur que la taille des onglets seront bien à 100% */
+.row-onglets {
+    width: 100%;
+}
+
+/*** Pour le style du titre médiathèque */
+.bordure-titre {
+    border-radius: 5px;
+    text-align: center;
+    background-color: lightskyblue;
+    box-shadow: 5px 5px 5px black;
+}
+
+/* Quand la souris passe devant un élément, cet élément change de couleur */
+.champ:hover {
+    background-color: lightgray;
+}
+
+/* Quand un élément est cliqué, cet élément change de couleur pour montré qu'il est selectionné */
+.champ:focus {
+    background-color: gray;
+}
+
+.champ {
+    display: flex;
+}
+
+.champ .btn {
+    margin-left: auto;
+}
+
+/* Pour enlever l'espacement des listes */
+fieldset ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+.titre {
+    color: white;
+    text-shadow: black 1px 0 10px;
+}
+
+/* Pour faire fonctionner les balises legend avec bootsrap
+legend {
+    float: none;
+    padding: inherit;
+}

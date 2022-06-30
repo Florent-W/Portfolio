@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="images/favicon.ico"/>
+    <title>Médiathèque</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <script type="text/javascript" src="js/script.js" async></script>
+</head>
+<body>
+<fieldset id="fenetre" class="fenetre border p-2">
+    <div class="bordure-titre">
+        <h1 class="titre">Mediathèque</h1>
+    </div>
+    <ul class="nav nav-tabs" id="tab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" onclick="apparaitreOnglet('gestion', 'ajouterAdherent', 'ajouterLivre', 'options');"
+                    id="gestion-tab" data-bs-toggle="tab" data-bs-target="#gestion" type="button" role="tab"
+                    aria-controls="gestion" aria-selected="false"><i class="fas fa-address-book"></i> Gestion
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" onclick="apparaitreOnglet('ajouterAdherent', 'ajouterLivre', 'gestion', 'options');"
+                    id="ajouterAdherent-tab" data-bs-toggle="tab" data-bs-target="#ajouterAdherent" type="button"
+                    role="tab" aria-controls="ajoutAdherent" aria-selected="true"><i class="fas fa-user"></i> Ajouter
+                Adhérent
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" onclick="apparaitreOnglet('ajouterLivre', 'ajouterAdherent', 'gestion', 'options');"
+                    id="ajouterLivre-bouton" data-bs-toggle="tab" data-bs-target="#ajouterLivre" type="button"
+                    role="tab" aria-controls="ajoutLivre" aria-selected="false"><i class="fas fa-book-open"></i> Ajouter
+                Livre
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" onclick="apparaitreOnglet('options', 'ajouterLivre', 'ajouterAdherent', 'gestion');"
+                    id="options-tab" data-bs-toggle="tab" data-bs-target="#options" type="button"
+                    role="tab" aria-controls="ajoutLivre" aria-selected="false"><i class="fas fa-cogs"></i> Options
+            </button>
+        </li>
+    </ul>
+    <div class="tab-content" id=tabContent">
+        <div class="tab-pane fade show active" id="gestion" role="tabpanel" aria-labelledby="gestion-tab">
+            <fieldset class="border p-2">
+            <form class="tab-pane fade show" id="selectionGenreForm">
+                <div id="erreurMessage"></div>
+                <legend class="w-auto"><i class="fas fa-search"></i> Rechercher</legend>
+                <div class="form-group">
+                    <label for="selectionGenreAccueil"><i class="fas fa-book"></i> Genre des Livres</label>
+                    <select class="form-select" id="selectionGenreAccueil" onchange="rechercherLivreParGenre()" required></select>
+                </div>
+            </form>
+            </fieldset>
+            <div class="onglets">
+                <div class="row m-1 row-onglets" style="display: flex; flex-direction: row;">
+                <fieldset class="border p-2 col-lg-4 col-xs-10" style="min-width: 33%">
+                    <legend class="w-auto"><i class="fas fa-user"></i> Adhérents</legend>
+                    <div id="listeAdherents">
+                        <ul id="listeDivAdherents"></ul>
+                    </div>
+                </fieldset>
+                <fieldset class="border p-2 col-lg-4 col-xs-10" style="min-width: 33%">
+                    <legend class="w-auto"><i class="fas fa-book-open"></i> Livres Disponibles</legend>
+                    <div id="listeLivresDisponibles">
+                        <ul id="listeDivLivresDisponibles"></ul>
+                    </div>
+                </fieldset>
+                <fieldset class="border p-2 col-lg-4 col-xs-10" style="min-width: 33%">
+                    <legend class="w-auto"><i class="fas fa-address-book"></i> Livres Empruntés</legend>
+                    <div id="listeLivresEmpruntes">
+                        <ul id="listeDivLivresEmpruntes"></ul>
+                    </div>
+                </fieldset>
+                </div>
+            </div>
+        </div>
+        <form class="tab-pane fade show" id="ajouterAdherent" role="tabpanel"
+              aria-labelledby="ajouterAdherent-tab">
+            <fieldset class="border p-2">
+                <legend class="w-auto"><i class="fas fa-user"></i> Nouvel Adhérent</legend>
+                <div class="form-group">
+                    <label for="prenomAdherent"><i class="fas fa-user-tie"></i> Prénom de l'Adhérent</label>
+                    <input type="text" class="form-control" placeholder="Prénom..." id="prenomAdherent" name="prenomAdherent" required>
+                </div>
+                <div class="form-group">
+                    <label for="nomAdherent"><i class="fas fa-user-edit"></i> Nom de l'Adhérent</label>
+                    <input type="text" placeholder="Nom..." class="form-control" id="nomAdherent" name="nomAdherent"
+                           required>
+                </div>
+                <div class="form-group mt-3">
+                    <button type="button" id="buttonAjouterAdherent" class="btn btn-primary"
+                            onclick="inserer_adherent()">Ajouter
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+        <form class="tab-pane fade show" id="ajouterLivre" role="tabpanel" aria-labelledby="ajouterLivre-tab">
+            <fieldset class="border p-2">
+                <legend class="w-auto"><i class="fas fa-book-open"></i> Nouveau Livre</legend>
+                <div class="form-group">
+                    <label for="titreLivre"><i class="fas fa-book"></i> Titre du Livre</label>
+                    <input type="text" placeholder="Titre..." class="form-control" id="titreLivre" name="titreLivre"
+                           required>
+                </div>
+                <div class="form-group">
+                    <label for="auteurLivre"><i class="fas fa-address-book"></i> Auteur du Livre</label>
+                    <input type="text" placeholder="Auteur..." class="form-control" id="auteurLivre" name="auteurLivre"
+                           required>
+                </div>
+                <div class="form-group">
+                    <label for="selectionGenre"><i class="fas fa-scroll"></i> Genre du Livre</label>
+                    <select class="form-select" id="selectionGenre" required></select>
+                </div>
+                <div class="form-group mt-3">
+                    <button type="button" id="buttonAjouterLivre" class="btn btn-primary" onclick="inserer_livre()">
+                        Ajouter
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+
+        <form class="tab-pane fade show" id="options" role="tabpanel" aria-labelledby="options-tab">
+            <fieldset class="border p-2">
+                <legend class="w-auto"><i class="fas fa-cogs"></i> Options</legend>
+                <form class="tab-pane fade show" id="selectionThemeForm">
+                    <div class="form-group">
+                        <label for="selectionTheme"><i class="far fa-image"></i> Thème</label>
+                        <select class="form-select" id="selectionTheme" onchange="changerTheme(this.value)">
+                            <option value="bibliotheque">Bibliothèque</option>
+                            <option value="espace">Espace</option>
+                            <option value="montagne">Montagne</option>
+                            <option value="aurore_boreale">Aurore Boréale</option>
+                            <option value="seigneur_des_anneaux">Seigneur des Anneaux</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="selectionTheme"><i class="far fa-window-maximize"></i> Taille de la Médiathèque</label>
+                        <select class="form-select" id="selectionTaille" onchange="changerTailleFenetre(this.value)">
+                            <option value="petite">Petite</option>
+                            <option value="moyenne">Moyenne</option>
+                            <option value="grande">Grande</option>
+                            <option value="tres_grande" selected="selected">Très Grande</option>
+                            <option value="enorme">Enorme</option>
+                        </select>
+                    </div>
+                </form>
+            </fieldset>
+        </form>
+    </div>
+</fieldset>
+
+<!-- Modal -->
+<div class="modal fade" id="modalInformations" tabindex="-1" aria-labelledby="modalInformationsLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalInformationsLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalInformationsBody">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalLivreDisponible" tabindex="-1" aria-labelledby="modalLivreDisponibleLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLivreDisponibleLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalLivreDisponibleBody">
+                <div class="form-group">
+                    <label for="modalAdherentId" id="modalPhraseEmpruntLivre" class="col-form-label"></label>
+                    <input type="number" min="1" class="form-control" id="modalAdherentId" placeholder="Numéro d'un adhérent." required>
+                    <small class="text-danger" id="errorModalAdherentBody"></small>
+                </div>
+                <input id="modalNumLivreAEmprunter" name="modalNumLivreAEmprunter" type="hidden">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="majLivre('emprunter', 'modalNumLivreAEmprunter', 'modalAdherentId')">Valider</button> <!-- Mise à jour avec l'emprunt du livre -->
+                <button type="button" class="btn btn-primary" id="modalLivreDisponibleFermer" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalLivreEmprunter" tabindex="-1" aria-labelledby="modalLivreEmprunterLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLivreEmprunterLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalLivreEmprunterBody">
+                <div class="form-group">
+                    <div id="modalPhraseRendreLivre" name="modalPhraseRendreLivre"></div>
+                </div>
+                <input id="modalNumLivreARendre" name="modalNumLivreARendre" type="hidden">
+                <input id="modalAdherentIdRendre" name="modalAdherentIdRendre" type="hidden">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="majLivre('disponible', 'modalNumLivreARendre', 'modalAdherentIdRendre')">Valider</button> <!-- Mise à jour de la disponibilité du livre -->
+                <button type="button" class="btn btn-primary" id="modalLivreEmprunterFermer" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

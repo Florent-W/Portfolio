@@ -1,4 +1,4 @@
-<?php            
+<?php
 session_start();
 $erreurConnexion = false;
 if (!empty($_POST['nom']) and !empty($_POST['mdp'])) { // Contrôle formulare
@@ -24,7 +24,7 @@ if (!empty($_POST['nom']) and !empty($_POST['mdp'])) { // Contrôle formulare
             }
 ?>
             <script>
-                document.location.href = '/portfolio/index.php'; // Redirection vers l'accueil si la connexion a réussi
+                document.location.href = 'index.php'; // Redirection vers l'accueil si la connexion a réussi
             </script>
 <?php
         }
@@ -45,8 +45,8 @@ if (!empty($_POST['nom']) and !empty($_POST['mdp'])) { // Contrôle formulare
 <body class="background">
     <div class="container container-bordure animated fadeInRight bg-white">
         <div class="row">
-            <form class="form" method="post" style="margin:50px">
-                <h1>Connexion</h1>
+            <form class="form" method="post" style="margin-top:50px; margin-bottom: 50px; padding-left: 30px; padding-right: 30px;">
+                <h1 class="text-dark">Connexion</h1>
                 <hr> <!-- Trait -->
                 <div class="form-group">
                     <label for="nom">Nom</label>

@@ -3,12 +3,10 @@
     include_once('connexion_base_donnee.php');
     
     $ancien_nom_image = $_POST['ancien_nom'];
-    // $nom_image = $_FILES['images']['name'];
     $nom_image = $_POST['nom_image'];
-    // $fichier = $_POST['file'];
     $extension_image = strtolower(pathinfo($nom_image, PATHINFO_EXTENSION));
     $date_actuel = $_POST['date_actuel'];
-   // $dateActuel = date("Y-m-d H:i:s");
+
     // On récupère les variables
     $jour = $_POST['jour'];
     $mois = $_POST['mois'];
@@ -19,19 +17,6 @@
     $hash = $_POST['hash'];
     $extension_image = $_POST['extension_image'];
 
-  //  move_uploaded_file($_FILES['images']['tmp_name'], $_FILES['images']['name'] . "." . strtolower(pathinfo($_FILES['images']['name'], PATHINFO_EXTENSION))); // Bouge l'image sans la redimensionner, il faudra faire en sorte qu'elle ne dépasse pas une taille
-   // $jour = strftime("%d", strtotime($dateActuel));
-  //  $mois = strftime("%B", strtotime($dateActuel));
-   // $annee = strftime("%Y", strtotime($dateActuel));
-   // $heure = strftime("%H", strtotime($dateActuel));
-  //  $minute = strftime("%M", strtotime($dateActuel));
-   // $seconde = strftime("%S", strtotime($dateActuel));
-
-  /*  // Génére un hash qui servira pour le nom du fichier
-    $hash_avant = random_bytes(8);
-    // Converti en caractère
-    $hash = bin2hex($hash_avant);
-*/
     $tailleImage = getimagesize($_FILES['images']['tmp_name']); // Récupération taille de l'image uploadée
     $largeur = $tailleImage[0];
     $hauteur = $tailleImage[1];
